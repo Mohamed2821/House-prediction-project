@@ -1,3 +1,6 @@
+import os
+print(os.listdir())
+print(os.listdir("templates"))
 from flask import Flask, render_template, request
 import pickle
 import os
