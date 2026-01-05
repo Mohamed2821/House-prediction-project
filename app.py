@@ -1,31 +1,29 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
+import joblib
 import numpy as np
-import pickle
 
 app = Flask(__name__)
 
-# Load model once
-with open("model.pkl", "rb") as f:
-    model = pickle.load(f)
+# Load trained model (SAFE METHOD)
+model = joblib.load("model.joblib")
 
-@app.route("/")
-def home():
-    return render_template("index.html")
+@app.route("/", methods=["GET", "POST"])
+def index():
+    prediction = None
 
-@app.route("/predict", methods=["POST"])
-def predict():
-    try:
-        area = float(request.form["area"])
-        bedrooms = int(request.form["bedrooms"])
-        bathrooms = int(request.form["bathrooms"])
+    if request.method == "POST":
+        try:
+            area = float(request.form["area"])
+            bedrooms = int(request.form["bedrooms"])
+            bathrooms = int(request.form["bathrooms"])
 
-        prediction = model.predict([[area, bedrooms, bathrooms]])
-        price = round(prediction[0], 2)
+            features = np.array([[area, bedrooms, bathrooms]])
+            prediction = round(model.predict(features)[0], 2)
 
-        return jsonify({"price": price})
+        except Exception as e:
+            prediction = "Invalid input"
 
-    except:
-        return jsonify({"error": "Invalid input"})
+    return render_template("index.html", prediction=prediction)
 
 if __name__ == "__main__":
     app.run(debug=True)
