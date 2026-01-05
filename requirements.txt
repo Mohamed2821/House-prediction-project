@@ -1,4 +1,6 @@
-flask==3.0.0
-numpy
-scikit-learn
+flask
 gunicorn
+numpy
+pandas
+joblib
+scikit-learn==1.3.2
