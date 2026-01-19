@@ -4,7 +4,7 @@ This project involves building a machine learning model to predict house prices 
 
 ## Kaggle Competition
 - Dataset: [House Prices - Advanced Regression Techniques] (https://www.kaggle.com/datasets/shree1992/housedata?resource=download&select=data.csv)
-- Model Score: 87.16% (R-squared score)
+- Model Score:  0.37717843615954905% (R-squared score)
 
 ## File Structure
 - `house_price_prediction.ipynb`: Jupyter Notebook containing the code for data preprocessing, exploratory data analysis (EDA), feature engineering, model training, and prediction.
